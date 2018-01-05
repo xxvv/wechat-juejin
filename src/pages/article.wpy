@@ -1,0 +1,36 @@
+<template>
+  <scroll-view>
+    <WxParseHTML :html.sync="html"></WxParseHTML>
+  </scroll-view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import fetch from '../fetch'
+  import WxParseHTML from '../components/WxParseHTML'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '文章'
+    }
+
+    components = {
+      WxParseHTML
+    }
+
+    data = {
+      html: ''
+    }
+
+    async onLoad (opts) {
+      wepy.showNavigationBarLoading()
+      let res = await fetch('https://psygswah.qcloud.la/weapp/article?art_url=' + encodeURIComponent(opts.org))
+      // let res = await fetch('http://localhost:5757/weapp/article?art_url=' + encodeURIComponent(opts.org))
+      wepy.hideNavigationBarLoading()
+      this.html = res.data
+      this.$apply()
+      wepy.setNavigationBarTitle({title: opts.t})
+    }
+  }
+</script>
+<style lang="less">
+
+</style>

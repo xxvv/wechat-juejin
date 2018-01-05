@@ -1,0 +1,62 @@
+
+<template>
+  <scroll-view scroll-y @scrolltolower="lower" style="height: {{sysInfo.windowHeight}}px;">
+    <Cells>
+      <repeat for="{{list}}" key="index" index="index" item="item">
+        <Cell :title="item.title" :link="item.type === 'post'" :url="'/pages/article?org=' + item.originalUrl + '&type=' + item.type + '&t=' + item.title"></Cell>
+      </repeat>
+    </Cells>
+  </scroll-view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import fetch from '../fetch'
+  import Cells from '../components/Cells'
+  import Cell from '../components/Cell'
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '掘金-个人版'
+    }
+    components = {
+      Cells,
+      Cell
+    }
+    data = {
+      list: [],
+      sysInfo: {},
+      params: {}
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+      async load () {
+        wepy.showNavigationBarLoading()
+        let url = 'https://timeline-merger-ms.juejin.im/v1/get_entry_by_rank?src=web&limit=20&category=5562b415e4b00c57d9b94ac8'
+        if (this.params && this.params.before) {
+          url += '&before=' + this.params.before
+        }
+        let res = await fetch(url)
+        wepy.hideNavigationBarLoading()
+        if (res.m === 'ok') {
+          let entrylist = res.d.entrylist
+          this.list.push(...res.d.entrylist)
+          this.params = {before: entrylist[entrylist.length - 1].rankIndex}
+          this.$apply()
+        }
+      },
+      lower (e) {
+        this.methods.load.bind(this)()
+      }
+    }
+
+    async onLoad() {
+      this.sysInfo = wepy.getStorageSync('sysInfo')
+      console.log(this)
+      await this.methods.load.bind(this)()
+    }
+  }
+</script>

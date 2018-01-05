@@ -1,0 +1,36 @@
+{
+	"client": "./dist",
+	"svr": "./server",
+	"miniprogramRoot": "./dist",
+	"qcloudRoot": "./server",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"appid": "wxd6da79b70ae73275",
+	"projectname": "juejin",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "article",
+					"pathName": "pages/article",
+					"query": "org=https://juejin.im/post/5a4ed917f265da3e317df515&type=post"
+				}
+			]
+		}
+	}
+}
