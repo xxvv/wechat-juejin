@@ -55,7 +55,6 @@
 
     async onLoad() {
       this.sysInfo = wepy.getStorageSync('sysInfo')
-      console.log(this)
       await this.methods.load.bind(this)()
     }
   }
