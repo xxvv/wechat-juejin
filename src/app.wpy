@@ -34,7 +34,6 @@ export default class extends wepy.app {
 
   onLaunch() {
     wepy.setStorageSync('sysInfo', wepy.getSystemInfoSync())
-    
   }
 }
 </script>
