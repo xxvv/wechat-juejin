@@ -11,5 +11,10 @@ const controllers = require('../controllers')
 // const { auth: { authorizationMiddleware, validationMiddleware } } = require('../qcloud')
 
 router.get('/article', controllers.article)
+// 代理访问图片
+router.get('/img', controllers.imgProxy)
+router.get('/env', function (ctx) {
+    ctx.body = process.env
+})
 
 module.exports = router

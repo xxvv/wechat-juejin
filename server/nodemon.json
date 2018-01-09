@@ -10,6 +10,7 @@
     },
     "env": {
         "NODE_ENV": "development",
+        "imgProxyURL": "http://localhost:5757/weapp/img?img_url=",
         "DEBUG": "*,-nodemon:*,-nodemon,-knex:pool"
     },
     "ext": "js json"

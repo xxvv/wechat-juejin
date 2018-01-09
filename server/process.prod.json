@@ -1,12 +1,13 @@
 {
-    "name": "session",
+    "name": "juejin",
     "script": "app.js",
     "cwd": "./",
     "exec_mode": "fork",
     "watch": true,
     "ignore_watch": ["tmp"],
     "env": {
-        "NODE_ENV": "production"
+        "NODE_ENV": "production",
+        "imgProxyURL": "https://psygswah.qcloud.la/weapp/img?img_url="
     },
     "engines": {
         "node": ">=7.6"

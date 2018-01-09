@@ -18,6 +18,7 @@ var __emojisBaseSrc = '';
 var __emojis = {};
 var wxDiscode = require('./wxDiscode.js');
 var HTMLParser = require('./htmlparser.js');
+const imgProxyURL = process.env.imgProxyURL || 'https://psygswah.qcloud.la/weapp/img?img_url='
 // Empty Elements - HTML 5
 var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr");
 // Block Elements - HTML 5
@@ -141,7 +142,6 @@ function html2json(html, bindName) {
                     return pre;
                 }, {});
             }
-
             //对img添加额外数据
             if (node.tag === 'img') {
                 node.imgIndex = results.images.length;
@@ -150,7 +150,7 @@ function html2json(html, bindName) {
                 if (imgUrl && imgUrl[0] == '') {
                     imgUrl.splice(0, 1);
                 }
-                imgUrl = wxDiscode.urlToHttpUrl(imgUrl, __placeImgeUrlHttps);
+                imgUrl = imgProxyURL + encodeURIComponent(wxDiscode.urlToHttpUrl(imgUrl, __placeImgeUrlHttps));
                 node.attr.src = imgUrl;
                 node.from = bindName;
                 results.images.push(node);

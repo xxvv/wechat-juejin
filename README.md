@@ -2,6 +2,7 @@
 
 > 使用了腾讯云服务器，参数已经配置好了。
 > [如何配置](https://github.com/tencentyun/wafer2-quickstart-nodejs)
+> 配置prod.env没有用
 
 
 ## 开发环境
@@ -36,10 +37,10 @@ nodemon
 
 
 ## 功能列表
-### 1、显示文章列表
-### 2、显示文章信息，后台获取文章解析[wxParse](https://github.com/icindy/wxParse)
+#### 1、显示文章列表
+#### 2、显示文章信息，后台获取文章解析[wxParse](https://github.com/icindy/wxParse)  
+#### 3、代理图片显示
 
 ## todo
-### 1、图片不能显示
 ### 2、代码显示美化
 ### 3、兼容更多类型，现在只能是`post`
