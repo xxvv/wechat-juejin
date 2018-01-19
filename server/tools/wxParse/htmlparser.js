@@ -61,7 +61,10 @@ function HTMLParser(html, handler) {
 				// end tag
 			} else if (html.indexOf("</") == 0) {
 				match = html.match(endTag);
-
+				console.log(match)
+				if (match[1] === 'pre') {
+					console.log(stack)
+				}
 				if (match) {
 					html = html.substring(match[0].length);
 					match[0].replace(endTag, parseEndTag);
@@ -83,13 +86,12 @@ function HTMLParser(html, handler) {
 				index = html.indexOf("<");
 				var text = ''
 				while (index === 0) {
-                                  text += "<";
+                                  text += '<';
                                   html = html.substring(1);
                                   index = html.indexOf("<");
 				}
 				text += index < 0 ? html : html.substring(0, index);
 				html = index < 0 ? "" : html.substring(index);
-
 				if (handler.chars)
 					handler.chars(text);
 			}
@@ -118,7 +120,6 @@ function HTMLParser(html, handler) {
 
 	function parseStartTag(tag, tagName, rest, unary) {
 		tagName = tagName.toLowerCase();
-
 		if (block[tagName]) {
 			while (stack.last() && inline[stack.last()]) {
 				parseEndTag("", stack.last());
@@ -142,7 +143,7 @@ function HTMLParser(html, handler) {
 					arguments[3] ? arguments[3] :
 						arguments[4] ? arguments[4] :
 							fillAttrs[name] ? name : "";
-
+							
 				attrs.push({
 					name: name,
 					value: value,

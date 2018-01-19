@@ -21,6 +21,10 @@
 			"current": -1,
 			"list": []
 		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": -1,
 			"list": [
@@ -28,7 +32,7 @@
 					"id": 0,
 					"name": "article",
 					"pathName": "pages/article",
-					"query": "org=https://juejin.im/post/5a4ed917f265da3e317df515&type=post"
+					"query": "org=https://juejin.im/post/5a605ca06fb9a01c9e460308"
 				}
 			]
 		}

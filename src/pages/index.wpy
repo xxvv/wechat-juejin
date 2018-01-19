@@ -3,7 +3,7 @@
   <scroll-view scroll-y @scrolltolower="lower" style="height: {{sysInfo.windowHeight}}px;">
     <Cells>
       <repeat for="{{list}}" key="index" index="index" item="item">
-        <Cell :title="item.title" :link="item.type === 'post'" :url="'/pages/article?org=' + item.originalUrl + '&type=' + item.type + '&t=' + item.title"></Cell>
+        <Cell :title="item.title" :link="item.type !== 'article'" :url="'/pages/article?org=' + item.originalUrl + '&type=' + item.type + '&t=' + item.title"></Cell>
       </repeat>
     </Cells>
   </scroll-view>

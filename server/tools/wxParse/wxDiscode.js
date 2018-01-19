@@ -107,8 +107,8 @@ function strcharacterDiscode(str){
     str = str.replace(/&quot;/g, "'");
     str = str.replace(/&amp;/g, '&');
     // 防止解析
-    str = str.replace(/&lt;/g, '‹');
-    str = str.replace(/&gt;/g, '›');
+    str = str.replace(/&lt;/g, '<');
+    str = str.replace(/&gt;/g, '>');
 
     // str = str.replace(/&lt;/g, '<');
     // str = str.replace(/&gt;/g, '>');

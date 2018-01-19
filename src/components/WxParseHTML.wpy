@@ -2,6 +2,8 @@
   <block>
     <import src="../wxParse/wxParse.wxml"/>
     <template is="wxParse" data="{{...article}}"/>
+    <!-- <div><span>123</span><span>123</span><div class='abs'>adsfsdf</div></div> -->
+    <!-- <richt-text nodes="{{html}}" type="node"></richt-text> -->
   </block>
 </template>
 <script>
@@ -126,7 +128,7 @@
     border-left: 4px solid #ddd;
     padding: 0 26rpx;
     color: #666;
-    font-size: 38rpx;
+    font-size: 32rpx;
   }
 
   .wxParse-code,.wxParse-wxxxcode-style{
@@ -153,7 +155,8 @@
     width: 5px;
     height: 5px;
     background-color: #333;
-    margin-right: 5px;
+    margin: 0 10px;
+    border-radius: 5px;
   }
 
   .wxParse-li-square{
@@ -226,22 +229,41 @@
   }
   .wxParse-figure {
     overflow: hidden;
+    text-align: center;
   }
+</style>
+
+
+<style>
+/* pre代码美化 */
+.hljs{display:block;overflow-x:auto;padding:0.5em;background:#F0F0F0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888888}.hljs-keyword,.hljs-attribute,.hljs-selector-tag,.hljs-meta-keyword,.hljs-doctag,.hljs-name{font-weight:bold}.hljs-type,.hljs-string,.hljs-number,.hljs-selector-id,.hljs-selector-class,.hljs-quote,.hljs-template-tag,.hljs-deletion{color:#880000}.hljs-title,.hljs-section{color:#880000;font-weight:bold}.hljs-regexp,.hljs-symbol,.hljs-variable,.hljs-template-variable,.hljs-link,.hljs-selector-attr,.hljs-selector-pseudo{color:#BC6060}.hljs-literal{color:#78A960}.hljs-built_in,.hljs-bullet,.hljs-code,.hljs-addition{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}
 </style>
 
 <style>
   /* 公用 */
   .entry-view {
-    font-size: 36rpx;
+    font-size:32rpx;
     font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
     word-break: break-word;
     text-rendering: optimizeLegibility;
     color: #333;
     background-color: #fff;
+    padding:0 24rpx;
   }
+  .post-title {
+    font-weight: 700;
+    font-size: 48rpx;
+    padding: 4rpx 0;
+    line-height: 1.3;
+  }
+  .post-info-mobile {
+    margin: 7rpx 0 20rpx;
+    font-size: 36rpx;
+  }
+ 
   .wxParse-h3 {
     display: block;
-    font-size: 28rpx;
+    font-size: 38rpx;
     -webkit-margin-before: 1em;
     -webkit-margin-after: 1em;
     -webkit-margin-start: 0px;
@@ -253,30 +275,12 @@
     line-height: 1.93rem;
     overflow: auto;
   }
-</style>
-<style>
-/* pre代码美化 */
-.hljs{display:block;overflow-x:auto;padding:0.5em;background:#F0F0F0}.hljs,.hljs-subst{color:#444}.hljs-comment{color:#888888}.hljs-keyword,.hljs-attribute,.hljs-selector-tag,.hljs-meta-keyword,.hljs-doctag,.hljs-name{font-weight:bold}.hljs-type,.hljs-string,.hljs-number,.hljs-selector-id,.hljs-selector-class,.hljs-quote,.hljs-template-tag,.hljs-deletion{color:#880000}.hljs-title,.hljs-section{color:#880000;font-weight:bold}.hljs-regexp,.hljs-symbol,.hljs-variable,.hljs-template-variable,.hljs-link,.hljs-selector-attr,.hljs-selector-pseudo{color:#BC6060}.hljs-literal{color:#78A960}.hljs-built_in,.hljs-bullet,.hljs-code,.hljs-addition{color:#397300}.hljs-meta{color:#1f7199}.hljs-meta-string{color:#4d99bf}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:bold}
-</style>
-
-<style>
-.entry-view {
-  padding:0 24rpx;
-}
-.post-title {
-  font-weight: 700;
-  font-size: 48rpx;
-  padding: 4rpx 0;
-  line-height: 1.3;
-}
-.post-info-mobile {
-  margin: 7rpx 0 20rpx;
-  font-size: 36rpx;
-}
-.book-section-view .entry-content, .column-view .entry-content, .entry-public-view .entry-content {
-    word-break: break-word;
-    line-height: 28rpx;
-    font-weight: 400;
-    font-size: 38rpx;
-}
+  .wxParse-code {
+    font-size: 24rpx;
+  }
+  /* 代码换行 */
+  text {
+    display: none
+  }
+  .wxParse-pre text {display: block; height: 0px}
 </style>

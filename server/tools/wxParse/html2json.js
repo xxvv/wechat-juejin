@@ -56,7 +56,7 @@ function removeDOCTYPE(html) {
 
 function trimHtml(html) {
   return html
-        .replace(/\r?\n+/g, '')
+        .replace(/\r?\n+/g, '<br/>')
         .replace(/<!--.*?-->/ig, '')
         .replace(/\/\*.*?\*\//ig, '')
         .replace(/[ ]+</ig, '<')
@@ -66,7 +66,7 @@ function trimHtml(html) {
 function html2json(html, bindName) {
     //处理字符串
     html = removeDOCTYPE(html);
-    // html = trimHtml(html);
+    html = trimHtml(html);
     html = wxDiscode.strDiscode(html);
     //生成node节点
     var bufArray = [];
