@@ -33,6 +33,12 @@
 					"name": "article",
 					"pathName": "pages/article",
 					"query": "org=https://juejin.im/post/5a605ca06fb9a01c9e460308"
+				},
+				{
+					"id": -1,
+					"name": "search",
+					"pathName": "pages/search",
+					"query": "val=nodejs"
 				}
 			]
 		}

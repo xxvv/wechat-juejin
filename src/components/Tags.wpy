@@ -1,0 +1,57 @@
+<template>
+  <block>
+    <view class="weui-badge_box">
+      <Button :type.sync="type" mini="" >{{label}}</Button>
+      <text class='weui-badge {{compType}}' @tap="onBadgeTap">X</text>
+    </view>
+  </block>
+</template>
+<script>
+  import wepy from 'wepy'
+  import Badge from './Badge'
+  import Button from './Button'
+  export default class Tags extends wepy.component {
+    components = {
+      Badge,
+      Button
+    }
+    props = {
+      type: String,
+      label: String,
+      close: Function
+    }
+    methods = {
+      onBadgeTap () {
+        console.log(this.type, this.label, this.close)
+        this.close && this.close()
+      }
+    }
+  }
+</script>
+<style lang="less">
+  @import url('../lib/weui/widget/weui-button/weui-button.less');
+  @import url('../lib/weui/widget/weui-tips/weui-badge.less');
+  @import url('../lib/weui/widget/weui-tips/weui-badge.less');
+  @import url('../lib/weui/base/variable/color.less');
+  .weui-badge {
+    position: absolute;
+    top: -.4em;
+    right: -.4em;
+  }
+  .weui-badge_box {
+    position: relative;
+    width:auto;
+    display:inline-block;
+    margin: .4em
+  }
+  .weui-badge.weui-badge_default {
+    background-color: @weuiBgColorDefault;
+    color: @weuiTextColorTitle
+  }
+  .weui-btn_default {
+    background: #EFEFF4;
+    color: #222;
+  }
+  
+</style>
+

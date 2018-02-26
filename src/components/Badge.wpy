@@ -1,0 +1,49 @@
+<template>
+  <view class="weui-badge_box">
+    <slot></slot> 
+    <text class='weui-badge {{compType}}' @tap="onBadgeTap">{{value}}</text>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Badge extends wepy.component {
+    props = {
+      value: String,
+      type: {
+        type: String,
+        default: 'default'
+      }
+    }
+    computed = {
+      compType () {
+        return 'weui-badge_' + this.type || 'default'
+      }
+    }
+    methods = {
+      onBadgeTap () {
+        this.$emit('onBadgeTap')
+      }
+    }
+  }
+</script>
+<style lang="less">
+  @import url('../lib/weui/widget/weui-tips/weui-badge.less');
+  @import url('../lib/weui/base/variable/color.less');
+  .weui-badge {
+    position: absolute;
+    top: -.4em;
+    right: -.4em;
+  }
+  .weui-badge_box {
+    position: relative;
+    width:auto;
+    display:inline-block;
+    margin: .4em
+  }
+  .weui-badge.weui-badge_default {
+    background-color: @weuiBgColorDefault;
+    color: @weuiTextColorTitle
+  }
+</style>
+

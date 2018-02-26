@@ -1,0 +1,30 @@
+<template>
+  <block>
+    
+  </block>
+</template>
+<script>
+  import wepy from 'wepy'
+
+  export default class Cell extends wepy.component {
+    props = {
+      icon: {
+        type: String
+      },
+      title: {
+        type: String
+      },
+      footer: {
+        type: String
+      },
+      link: {
+        type: Boolean,
+        default: false
+      },
+      url: {
+        type: String,
+        default: ''
+      }
+    }
+  }
+</script>

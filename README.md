@@ -41,6 +41,3 @@ nodemon
 #### 2、显示文章信息，后台获取文章解析[wxParse](https://github.com/icindy/wxParse)  
 #### 3、代理图片显示
 
-## todo
-### 2、代码显示美化
-### 3、兼容更多类型，现在只能是`post`

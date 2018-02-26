@@ -1,0 +1,145 @@
+<template>
+  <scroll-view scroll-y @scrolltolower="lower" style="height: {{sysInfo.windowHeight}}px;">
+    <SearchBar :value.sync="searchVal"></SearchBar>
+    <block >
+      <repeat for="{{searchHistoryRecord}}" key="{{index}}">
+        <view class="weui-badge_box">
+          <button class="weui-btn weui-btn_default weui-btn_mini" @tap="getSearchValue({{item}})">{{item}}</button>
+          <text class='weui-badge ' @tap="removeHistory({{item}})">X</text>
+        </view>
+      </repeat>
+    </block>
+    <Cells>
+      <repeat for="{{list}}" key="index" index="index" item="item">
+        <Cell :title="item.title" :link="item.type !== 'article'" :url="'/pages/article?org=' + item.originalUrl + '&type=' + item.type + '&t=' + item.title"></Cell>
+      </repeat>
+    </Cells>
+  </scroll-view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import fetch from '../fetch'
+  import Cells from '../components/Cells'
+  import Cell from '../components/Cell'
+  import Button from '../components/Button'
+  import SearchBar from '../components/SearchBar'
+  export default class Index extends wepy.page {
+    data = {
+      url: 'https://search-merger-ms.juejin.im/v1/search?query=nodejs&page=0&raw_result=false&src=web',
+      page: 0,
+      list: [],
+      sysInfo: {},
+      searchVal: '',
+      isLower: false,
+      searchHistoryRecord: []
+    }
+
+    config = {
+      navigationBarTitleText: '查询'
+    }
+
+    components = {
+      Cells,
+      Cell,
+      Button,
+      SearchBar
+    }
+
+    events = {
+      getSearchValue (val) {
+        this.methods.getSearchValue.bind(this)(val)
+      }
+    }
+
+    methods = {
+      reset () {
+        this.page = 0
+        this.list = []
+      },
+      getSearchValue (val) {
+        console.log('123')
+        this.searchVal = val
+        let reset = this.methods.reset.bind(this)
+        let load = this.methods.load.bind(this)
+        if (val && !(this.searchHistoryRecord.some(f => f === val))) {
+          this.searchHistoryRecord.push(val)
+          wepy.setStorageSync('search', this.searchHistoryRecord)
+        }
+        reset()
+        load()
+      },
+      async getIds (val) {
+        let url = `https://search-merger-ms.juejin.im/v1/search?query=${val}&page=${this.page}&raw_result=false&src=web`
+        if (this.params && this.params.before) {
+          url += '&before=' + this.params.before
+        }
+        let search = await fetch(url)
+        if (search.m === 'ok') {
+          return search.d.map(m => m.objectId)
+        }
+        return []
+      },
+      async load () {
+        this.isLower = true
+        let ids = await this.methods.getIds.bind(this)(this.searchVal)
+        wepy.showNavigationBarLoading()
+        let url = 'https://timeline-merger-ms.juejin.im/v1/get_entry_by_ids?src=web'
+        url += '&entryIds=' + ids.join('|')
+        let res = await fetch(url)
+        wepy.hideNavigationBarLoading()
+        if (res.m === 'ok') {
+          let entrylist = res.d.entrylist
+          this.list.push(...entrylist)
+          this.$apply()
+        }
+        this.page++
+        this.isLower = false
+      },
+      lower () {
+        if (!this.isLower) this.methods.load.bind(this)(this.searchVal)
+      },
+      removeHistory (label) {
+        if (label) {
+          this.searchHistoryRecord = this.searchHistoryRecord.filter(f => f !== label)
+          wepy.setStorageSync('search', this.searchHistoryRecord)
+        }
+      }
+    }
+
+    async onLoad (opts) {
+      wepy.setNavigationBarTitle({title: opts.val})
+      this.sysInfo = wepy.getStorageSync('sysInfo')
+      this.searchVal = opts.val
+      this.$apply()
+      this.searchHistoryRecord = wepy.getStorageSync('search') || []
+      await this.methods.load.bind(this)()
+    }
+  }
+</script>
+<style lang="less">
+@import url('../lib/weui/widget/weui-button/weui-button.less');
+  @import url('../lib/weui/widget/weui-tips/weui-badge.less');
+  @import url('../lib/weui/widget/weui-tips/weui-badge.less');
+  @import url('../lib/weui/base/variable/color.less');
+  .weui-badge {
+    position: absolute;
+    top: -.4em;
+    right: -.4em;
+  }
+  .weui-badge_box {
+    position: relative;
+    width:auto;
+    display:inline-block;
+    margin: .4em
+  }
+  .weui-badge.weui-badge_default {
+    background-color: @weuiBgColorDefault;
+    color: @weuiTextColorTitle
+  }
+  .weui-btn_default {
+    background: #EFEFF4;
+    color: #222;
+  }
+</style>
+
+

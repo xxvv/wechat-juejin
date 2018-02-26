@@ -22,8 +22,8 @@
 
     async onLoad (opts) {
       wepy.showNavigationBarLoading()
-      let res = await fetch('https://psygswah.qcloud.la/weapp/article?art_url=' + encodeURIComponent(opts.org))
-      // let res = await fetch('http://localhost:5757/weapp/article?art_url=' + encodeURIComponent(opts.org))
+      // let res = await fetch('https://psygswah.qcloud.la/weapp/article?art_url=' + encodeURIComponent(opts.org))
+      let res = await fetch('http://localhost:5757/weapp/article?art_url=' + encodeURIComponent(opts.org))
       wepy.hideNavigationBarLoading()
       this.html = res.data
       this.$apply()

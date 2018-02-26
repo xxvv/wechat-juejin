@@ -1,6 +1,7 @@
 
 <template>
   <scroll-view scroll-y @scrolltolower="lower" style="height: {{sysInfo.windowHeight}}px;">
+    <SearchBar></SearchBar>
     <Cells>
       <repeat for="{{list}}" key="index" index="index" item="item">
         <Cell :title="item.title" :link="item.type !== 'article'" :url="'/pages/article?org=' + item.originalUrl + '&type=' + item.type + '&t=' + item.title"></Cell>
@@ -14,13 +15,15 @@
   import fetch from '../fetch'
   import Cells from '../components/Cells'
   import Cell from '../components/Cell'
+  import SearchBar from '../components/SearchBar'
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: '掘金-个人版'
     }
     components = {
       Cells,
-      Cell
+      Cell,
+      SearchBar
     }
     data = {
       list: [],
@@ -32,15 +35,21 @@
 
     }
 
+    events = {
+      async searchFocus () {
+        wepy.navigateTo({
+          url: 'search?val='
+        })
+      }
+    }
+
     methods = {
       async load () {
-        wepy.showNavigationBarLoading()
         let url = 'https://timeline-merger-ms.juejin.im/v1/get_entry_by_rank?src=web&limit=20&category=5562b415e4b00c57d9b94ac8'
         if (this.params && this.params.before) {
           url += '&before=' + this.params.before
         }
         let res = await fetch(url)
-        wepy.hideNavigationBarLoading()
         if (res.m === 'ok') {
           let entrylist = res.d.entrylist
           this.list.push(...res.d.entrylist)

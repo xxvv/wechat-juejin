@@ -1,0 +1,30 @@
+<template>
+  <button class='weui-btn {{btnType}} {{miniType}}' >
+    <slot></slot>
+  </button>
+</template>
+<script>
+  import wepy from 'wepy'
+  export default class Button extends wepy.component {
+    props = {
+      mini: String,
+      type: String
+    }
+
+    computed = {
+      btnType () {
+        return 'weui-btn_' + (this.type || 'default')
+      },
+      miniType () {
+        return this.mini !== undefined ? 'weui-btn_mini' : ''
+      }
+    }
+  }
+</script>
+<style lang="less">
+  @import url('../lib/weui/widget/weui-button/weui-button.less');
+  .weui-btn_default {
+    background: #EFEFF4;
+  }
+</style>
+

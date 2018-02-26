@@ -1,0 +1,75 @@
+<template>
+  <block>
+     <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+          <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" @focus="focus" @input="inputTyping" />
+            <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" @tap="clearInput">
+                <icon type="clear" size="14"></icon>
+            </view>
+          </view>
+          <label class="weui-search-bar__label" hidden="{{inputShowed}}" @tap="showInput">
+            <icon class="weui-icon-search" type="search" size="14"></icon>
+            <view class="weui-search-bar__text">搜索</view>
+          </label>
+        </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="enterInput">确定</view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" @tap="hideInput">取消</view>
+      </view>
+  </block>
+</template>
+<script>
+import wepy from 'wepy'
+export default class SearchBar extends wepy.component {
+  data = {
+    inputShowed: false,
+    inputVal: ''
+  }
+
+  props = ['value']
+
+  methods = {
+    showInput () {
+      this.inputShowed = true
+    },
+    hideInput () {
+      this.inputVal = ''
+      this.inputShowed = false
+    },
+    clearInput () {
+      this.inputVal = ''
+    },
+    inputTyping (e) {
+      this.inputVal = e.detail.value
+    },
+    enterInput () {
+      this.$emit('getSearchValue', this.inputVal)
+    },
+    focus () {
+      this.$emit('searchFocus')
+    }
+  }
+
+  watch = {
+    value (n, o) {
+      if (n) {
+        this.inputShowed = true
+        this.inputVal = n
+        this.$apply()
+      }
+    }
+  }
+
+  onLoad () {
+    if (this.value) {
+      this.inputShowed = true
+      this.inputVal = this.value
+    }
+  }
+}
+</script>
+<style lang="less">
+  @import url("../lib/weui/widget/weui-searchbar/weui-searchbar.less") ;
+</style>
+
